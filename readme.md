@@ -3,6 +3,7 @@ LeInstall
 Debian, nginx, Percona, PHP-FPM install script
 
 le = the
+
 install = quick deploy nginx, php-fpm, percona
 
 
