@@ -34,14 +34,19 @@ apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 apt-get update && apt-get dist-upgrade
 
 # install nginx and others
-apt-get install nginx percona-server-server percona-server-client
 
+# web server
+# database
+# dev depdendecies
+# php5 SAPI
+# php5 extensions
 
-# optional
-# apt-get install memcached
-
-# php shits
-apt-get install php5 php5-cli php5-common php5-curl php5-dev php5-gd php5-curl libcurl4-openssl-dev php5-mcrypt php5-fpm build-essential php5-memcached
+apt-get -y install \
+	nginx \
+	percona-server-server percona-server-client \
+	build-essential php5-dev libcurl4-openssl-dev \
+	php5-fpm php5-cli \
+	php5-curl php5-gd php5-mcrypt php5-memcached
 
 service mysql start
 service nginx start
