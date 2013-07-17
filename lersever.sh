@@ -21,9 +21,7 @@ cat > /etc/apt/sources.list.d/nginx.sources.list <<END
 deb http://nginx.org/packages/debian/ wheezy nginx
 deb-src http://nginx.org/packages/debian/ wheezy nginx
 END
-wget http://nginx.org/keys/nginx_signing.key
-cat nginx_signing.key | apt-key add -
-rm nginx_signing.key
+wget -q http://nginx.org/keys/nginx_signing.key -O - | apt-key add -
 
 #percona
 cat > /etc/apt/sources.list.d/percona.sources.list <<END
