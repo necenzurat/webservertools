@@ -2,8 +2,8 @@
 function check_root() {
 	if [ $(id -u) -ne 0 ]
 	then
-	    echo "Y U NO root???" 2>&1
-	    exit 1
+		echo "Y U NO root???" 2>&1
+		exit 1
 	fi
 }
 check_root
@@ -35,6 +35,7 @@ apt-get update && apt-get dist-upgrade
 
 # install nginx and others
 apt-get install nginx percona-server-server percona-server-client
+
 
 # optional
 # apt-get install memcached
