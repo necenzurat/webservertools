@@ -34,7 +34,7 @@ apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 apt-get update && apt-get dist-upgrade
 
 # install nginx and others
-apt-get install nginx percona-server-server-5.5 percona-server-client-5.5
+apt-get install nginx percona-server-server percona-server-client
 
 # optional
 # apt-get install memcached
