@@ -48,6 +48,6 @@ apt-get -y install \
 	php5-fpm php5-cli \
 	php5-curl php5-gd php5-mcrypt php5-memcached
 
-service mysql start
-service nginx start
-service php5-fpm start
+/etc/init.d/mysql start
+/etc/init.d/nginx start
+/etc/init.d/php5-fpm start
