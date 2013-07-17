@@ -31,7 +31,7 @@ END
 apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 
 # upgrade the system
-apt-get update && apt-get dist-upgrade
+apt-get update && apt-get -y dist-upgrade
 
 # install nginx and others
 
