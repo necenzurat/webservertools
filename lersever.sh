@@ -1,11 +1,12 @@
 #!/bin/bash
 function check_root() {
-	if [ ! "`whoami`" = "root" ]
+	if [ $(id -u) -ne 0 ]
 	then
-	    echo "Y U NO root???"
+	    echo "Y U NO root???" 2>&1
 	    exit 1
 	fi
 }
+check_root
 
 #backports
 cat > /etc/apt/sources.list.d/backports.sources.list <<END
