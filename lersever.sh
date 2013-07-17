@@ -31,7 +31,7 @@ END
 apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 
 #update and remove apache
-apt-get update && apt-get upgrade
+apt-get update && apt-get dist-upgrade
 ~
 #install nginx and others
 
