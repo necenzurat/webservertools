@@ -24,7 +24,7 @@ server {
     error_log /home/$servername/logs/error.log;
     root /home/$servername/public;
     server_tokens off;
-    add_header Served-From $server_addr;
+    add_header Served-From \$server_addr;
 
     # Disable .htaccess and other hidden files
     location  /. {
@@ -32,7 +32,7 @@ server {
     }
 
 	# uncomment this for index.php to be the router
-    #try_files $uri $uri/ /index.php?q=$uri&$args;
+    #try_files $uri $uri/ /index.php?q=\$uri&\$args;
 
     default_type text/html;
 
@@ -43,9 +43,9 @@ server {
         include /etc/nginx/fastcgi_params;
         fastcgi_pass unix:/tmp/php.socket;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_param PATH_INFO $fastcgi_path_info;
-        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO \$fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED \$document_root\$fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
     }
 
 	# no favicon.ico in logs
@@ -78,6 +78,9 @@ echo "Generated /home/$servername/public";
 ln -s /etc/nginx/sites-available/$servername.nginx /etc/nginx/sites-enabled/$servername.nginx
 
 echo "Generated symlink in /etc/nginx/sites-enabled/$servername.nginx";
+
+
+/etc/init.d/nginx start
 
 }
 
