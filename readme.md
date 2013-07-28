@@ -18,7 +18,7 @@ Usage
 **server.sh**
 
 ```$ ./server.sh```
-and follow the insttunctions
+and follow the instructions
 
 
 Installation
