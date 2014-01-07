@@ -31,8 +31,8 @@ server {
         return 404;
     }
 
-	# uncomment this for index.php to be the router
-    #try_files $uri $uri/ /index.php?q=\$uri&\$args;
+    # uncomment this for index.php to be the router
+    #try_files \$uri \$uri/ /index.php?q=\$uri&\$args;
 
     default_type text/html;
 
@@ -41,7 +41,7 @@ server {
 	# the php part
     location ~ \.php$ {
         include /etc/nginx/fastcgi_params;
-        fastcgi_pass unix:/tmp/php.socket;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_param PATH_INFO \$fastcgi_path_info;
         fastcgi_param PATH_TRANSLATED \$document_root\$fastcgi_path_info;
