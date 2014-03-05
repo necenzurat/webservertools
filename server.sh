@@ -32,7 +32,7 @@ server {
     }
 
     # uncomment this for index.php to be the router
-    #try_files \$uri \$uri/ /index.php?q=\$uri&\$args;
+    try_files \$uri \$uri/ /index.php?q=\$uri&\$args;
 
     default_type text/html;
 
@@ -63,6 +63,25 @@ server {
 }
 END
 
+cat > /etc/logrotate.d/$servername <<END
+
+
+/home/$servername/logs/* {
+        daily
+        missingok
+        rotate 52
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx adm
+        sharedscripts
+        postrotate
+                [ -f /var/run/nginx.pid ] && kill -USR1 `cat /var/run/nginx.pid`
+        endscript
+}
+END
+
+
 # make home dir folder
 mkdir /home/$servername
 echo "Generated /home/$servername";
@@ -79,8 +98,7 @@ ln -s /etc/nginx/sites-available/$servername.nginx /etc/nginx/sites-enabled/$ser
 
 echo "Generated symlink in /etc/nginx/sites-enabled/$servername.nginx";
 
-
-/etc/init.d/nginx start
+service nginx restart
 
 }
 
