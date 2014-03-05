@@ -64,8 +64,6 @@ server {
 END
 
 cat > /etc/logrotate.d/$servername <<END
-
-
 /home/$servername/logs/* {
         daily
         missingok
