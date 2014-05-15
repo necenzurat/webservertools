@@ -23,21 +23,13 @@ deb-src http://nginx.org/packages/debian/ wheezy nginx
 END
 wget -q http://nginx.org/keys/nginx_signing.key -O - | apt-key add -
 
-# percona (todo selection)
-# cat > /etc/apt/sources.list.d/percona.sources.list <<END
-# deb http://repo.percona.com/apt wheezy main
-# deb-src http://repo.percona.com/apt wheezy main
-# END
-# apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
+cat > /etc/apt/sources.list.d/percona.sources.list <<END
+deb http://repo.percona.com/apt wheezy main
+deb-src http://repo.percona.com/apt wheezy main
+END
+apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 
-# MariaDB
-# cat > /etc/apt/sources.list.d/mariadb.sources.list <<END
-# # MariaDB 10.0 repository list - created 2013-07-21 18:25 UTC
-# # http://mariadb.org/mariadb/repositories/
-# deb http://mariadb.mirror.nucleus.be//repo/10.0/debian wheezy main
-# deb-src http://mariadb.mirror.nucleus.be//repo/10.0/debian wheezy main
-# END
-# apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
+
 
 
 # upgrade the system
@@ -53,12 +45,10 @@ apt-get update && apt-get -y dist-upgrade
 
 apt-get -y install \
 	nginx \
-	# percona-server-server percona-server-client \
-	# mariadb-client mariadb-server mariadb-client mariadb-server mariadb-server-core mariadb-client-core \
-	mysql-server
+	percona-server-server percona-server-client \
 	build-essential php5-dev libcurl4-openssl-dev \
 	php5-fpm php5-cli \
-	php5-curl php5-gd php5-mcrypt php5-memcached \
+	php5-curl php5-mysql php5-gd php5-mcrypt php5-memcached \
 
 
 /etc/init.d/mysql start
