@@ -11,9 +11,9 @@ check_root
 function do_new_host() {
 read -p "Enter the name of the server (example.com)? " servername
 echo "generating config file for" $servername;
-echo "Generated file /etc/nginx/sites-available/$servername.nginx"
+echo "Generated file /etc/nginx/conf.d/$servername.conf"
 
-cat > /etc/nginx/sites-available/$servername.nginx <<END
+cat > /etc/nginx/conf.d/$servername.conf <<END
 server {
 	# listen for ipv4, Todo: ipv6?
     listen 80; 
@@ -92,9 +92,6 @@ echo "Generated /home/$servername/logs";
 mkdir /home/$servername/public
 echo "Generated /home/$servername/public";
 
-ln -s /etc/nginx/sites-available/$servername.nginx /etc/nginx/sites-enabled/$servername.nginx
-
-echo "Generated symlink in /etc/nginx/sites-enabled/$servername.nginx";
 
 service nginx restart
 
