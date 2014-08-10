@@ -93,6 +93,16 @@ mkdir /home/$servername/public
 echo "Generated /home/$servername/public";
 
 
+# i can haz permissions for www-data?
+chown -R www-data:www-data /home/$servername
+# yes, yes you can
+
+# make demo...
+cat > /home/$servername/public <<END
+<?php echo "hello world from $servername";
+END
+
+
 service nginx restart
 
 }
