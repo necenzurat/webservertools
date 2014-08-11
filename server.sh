@@ -98,7 +98,7 @@ chown -R www-data:www-data /home/$servername
 # yes, yes you can
 
 # make demo...
-cat > /home/$servername/public <<END
+cat > /home/$servername/public/index.php <<END
 <?php echo "hello world from $servername";
 END
 
