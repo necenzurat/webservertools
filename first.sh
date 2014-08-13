@@ -51,6 +51,25 @@ apt-get -y install \
 	php5-curl php5-mysql php5-gd php5-mcrypt php5-memcached \
 
 
+# configure nginx
+
+# first server block for requests directly to the ip
+cat > /etc/nginx/conf.d/000.conf <<END
+server {
+	listen 80; 
+    server_tokens off;
+	log_not_found off;
+	access_log off; 	#would be nice to add stats for the lulz
+    
+    location  / {
+    	keepalive_timeout 0;
+    	default_type "text/html; charset=UTF-8";
+    	return 418 "i'm a teapot";
+    } 
+}
+END
+
+
 /etc/init.d/mysql start
 /etc/init.d/nginx start
 /etc/init.d/php5-fpm start
