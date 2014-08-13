@@ -11,8 +11,8 @@ Usage
 
 1. wget-it
 2. run it
-2.5 wait some minutes/seconds
-3. enjoy your server
+3. wait some minutes/seconds
+4. enjoy your server
 
 
 **server.sh**
