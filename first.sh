@@ -48,7 +48,7 @@ apt-get -y install \
 	percona-server-server percona-server-client \
 	build-essential php5-dev libcurl4-openssl-dev \
 	php5-fpm php5-cli \
-	php5-curl php5-mysql php5-gd php5-mcrypt php5-memcached \
+	php5-curl php5-mysql php5-gd php5-mcrypt php5-memcached php-apc \
 
 
 # configure nginx
