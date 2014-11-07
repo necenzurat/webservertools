@@ -29,9 +29,6 @@ deb-src http://repo.percona.com/apt wheezy main
 END
 apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 
-
-
-
 # upgrade the system
 apt-get update && apt-get -y dist-upgrade
 
@@ -50,21 +47,19 @@ apt-get -y install \
 	php5-fpm php5-cli \
 	php5-curl php5-mysql php5-gd php5-mcrypt php5-memcached php-apc \
 
-
 # configure nginx
-
 # first server block for requests directly to the ip
 cat > /etc/nginx/conf.d/000.conf <<END
 server {
 	listen 80; 
-    server_tokens off;
+	server_tokens off;
 	log_not_found off;
-	access_log off; 	#would be nice to add stats for the lulz
+	access_log off;		#would be nice to add stats for the lulz
     
     location  / {
-    	keepalive_timeout 0;
-    	default_type "text/html; charset=UTF-8";
-    	return 418 "i'm a teapot";
+	keepalive_timeout 0;
+	default_type "text/html; charset=UTF-8";
+	return 418 "i'm a teapot";
     } 
 }
 END
