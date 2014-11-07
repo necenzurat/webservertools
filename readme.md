@@ -7,7 +7,7 @@ Web Server Tools, a collection of scripts to install and configure new vhosts, w
 Usage
 ------------
 
-**new.sh**
+**first .sh**
 
 1. wget-it
 2. run it
