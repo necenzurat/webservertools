@@ -41,6 +41,7 @@ apt-get update && apt-get -y dist-upgrade
 # php5 extensions
 
 apt-get -y install \
+	monit \
 	nginx \
 	percona-server-server percona-server-client \
 	build-essential php5-dev libcurl4-openssl-dev \
@@ -64,7 +65,43 @@ server {
 }
 END
 
+# configure monit
+# nginx
+cat > /etc/monit/conf.d/nginx.conf <<END
+check process nginx with pidfile /run/nginx.pid
+  group www
+  start program = "/etc/init.d/nginx start"
+  stop program = "/etc/init.d/nginx stop"
+  if children > 250 then restart
+  if loadavg(5min) greater than 10 for 8 cycles then stop
+  if failed host localhost port 80
+      protocol HTTP request "/monit/token" then restart
+  if 3 restarts within 3 cycles then alert
+  if 3 restarts within 5 cycles then timeout
+END
 
-/etc/init.d/mysql start
-/etc/init.d/nginx start
-/etc/init.d/php5-fpm start
+cat > /etc/monit/conf.d/php-fpm.conf <<END
+# edit acordingly
+check process php5-fpm with pidfile /var/run/php5-fpm.pid 
+  group www-data #change accordingly
+  start program = "/etc/init.d/php5-fpm start"
+  stop program  = "/etc/init.d/php5-fpm stop"
+  if failed unixsocket /var/run/php5-fpm.sock then restart
+  if 3 restarts within 5 cycles then timeout
+END
+
+
+cat > /etc/monit/conf.d/php-fpm.conf <<END
+check process mysql with pidfile /var/run/mysqld/mysqld.pid
+  start program = "/etc/init.d/mysql start" with timeout 60 seconds
+  stop program = "/etc/init.d/mysql stop"
+  if cpu > 60% for 2 cycles then alert
+  if cpu > 90% for 5 cycles then restart
+  if 3 restarts within 5 cycles then timeout
+  group server
+END
+
+/etc/init.d/monit restart
+/etc/init.d/mysql restart
+/etc/init.d/nginx restart
+/etc/init.d/php5-fpm restart
