@@ -91,7 +91,7 @@ check process php5-fpm with pidfile /var/run/php5-fpm.pid
 END
 
 
-cat > /etc/monit/conf.d/php-fpm.conf <<END
+cat > /etc/monit/conf.d/mysql.conf <<END
 check process mysql with pidfile /var/run/mysqld/mysqld.pid
   start program = "/etc/init.d/mysql start" with timeout 60 seconds
   stop program = "/etc/init.d/mysql stop"
