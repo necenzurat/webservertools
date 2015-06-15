@@ -13,7 +13,7 @@ apt-get autoremove --purge apache2*
 
 # backports
 cat > /etc/apt/sources.list.d/backports.sources.list <<END
-deb http://ftp.ro.debian.org/debian/ wheezy-backports main contrib non-free
+deb http://ftp.debian.org/debian/ wheezy-backports main contrib non-free
 END
 
 # nginx
