@@ -13,19 +13,19 @@ apt-get autoremove --purge apache2*
 
 # backports
 cat > /etc/apt/sources.list.d/backports.sources.list <<END
-deb http://ftp.debian.org/debian/ wheezy-backports main contrib non-free
+deb http://ftp.debian.org/debian/ jessie-backports main contrib non-free
 END
 
 # nginx
 cat > /etc/apt/sources.list.d/nginx.sources.list <<END
-deb http://nginx.org/packages/debian/ wheezy nginx
-deb-src http://nginx.org/packages/debian/ wheezy nginx
+deb http://nginx.org/packages/debian/ jessie nginx
+deb-src http://nginx.org/packages/debian/ jessie nginx
 END
 wget -q http://nginx.org/keys/nginx_signing.key -O - | apt-key add -
 
 cat > /etc/apt/sources.list.d/percona.sources.list <<END
-deb http://repo.percona.com/apt wheezy main
-deb-src http://repo.percona.com/apt wheezy main
+deb http://repo.percona.com/apt jessie main
+deb-src http://repo.percona.com/apt jessie main
 END
 apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 
@@ -68,37 +68,20 @@ END
 # configure monit
 # nginx
 cat > /etc/monit/conf.d/nginx.conf <<END
-check process nginx with pidfile /run/nginx.pid
-  group www
-  start program = "/etc/init.d/nginx start"
-  stop program = "/etc/init.d/nginx stop"
-  if children > 250 then restart
-  if loadavg(5min) greater than 10 for 8 cycles then stop
-  if failed host localhost port 80
-      protocol HTTP request "/monit/token" then restart
-  if 3 restarts within 3 cycles then alert
-  if 3 restarts within 5 cycles then timeout
+check process nginx with pidfile /var/run/nginx.pid
+    group www-data
+    start program = "/etc/init.d/nginx start"
+    stop program = "/etc/init.d/nginx stop"
+    if failed host localhost port 80 protocol http then restart
+    if 5 restarts within 5 cycles then timeout
 END
-
-cat > /etc/monit/conf.d/php-fpm.conf <<END
-# edit acordingly
-check process php5-fpm with pidfile /var/run/php5-fpm.pid 
-  group www-data #change accordingly
-  start program = "/etc/init.d/php5-fpm start"
-  stop program  = "/etc/init.d/php5-fpm stop"
-  if failed unixsocket /var/run/php5-fpm.sock then restart
-  if 3 restarts within 5 cycles then timeout
-END
-
 
 cat > /etc/monit/conf.d/mysql.conf <<END
 check process mysql with pidfile /var/run/mysqld/mysqld.pid
-  start program = "/etc/init.d/mysql start" with timeout 60 seconds
-  stop program = "/etc/init.d/mysql stop"
-  if cpu > 60% for 2 cycles then alert
-  if cpu > 90% for 5 cycles then restart
-  if 3 restarts within 5 cycles then timeout
-  group server
+    start program = "/etc/init.d/mysql start"
+    stop program = "/etc/init.d/mysql stop"
+    if failed unixsocket /var/run/mysqld/mysqld.sock then restart
+    if 5 restarts within 5 cycles then timeout
 END
 
 /etc/init.d/monit restart
