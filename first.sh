@@ -23,11 +23,11 @@ deb-src http://nginx.org/packages/debian/ jessie nginx
 END
 wget -q http://nginx.org/keys/nginx_signing.key -O - | apt-key add -
 
-cat > /etc/apt/sources.list.d/percona.sources.list <<END
-deb http://repo.percona.com/apt jessie main
-deb-src http://repo.percona.com/apt jessie main
-END
-apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
+#cat > /etc/apt/sources.list.d/percona.sources.list <<END
+#deb http://repo.percona.com/apt jessie main
+#deb-src http://repo.percona.com/apt jessie main
+#END
+#apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 
 # upgrade the system
 apt-get update && apt-get -y dist-upgrade
@@ -43,7 +43,7 @@ apt-get update && apt-get -y dist-upgrade
 apt-get -y install \
 	monit \
 	nginx \
-	percona-server-server percona-server-client \
+	mysql-server mysql-client \
 	build-essential php5-dev libcurl4-openssl-dev \
 	php5-fpm php5-cli \
 	php5-curl php5-mysql php5-gd php5-mcrypt php5-memcached php-apc \
